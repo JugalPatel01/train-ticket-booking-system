@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  resources :tickets
+  resources :payments
+  resources :places
   resources :schedules
   resources :trains
   devise_for :users

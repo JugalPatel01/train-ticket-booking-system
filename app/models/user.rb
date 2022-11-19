@@ -6,8 +6,18 @@ class User < ApplicationRecord
 
   enum role: [:admin,:user]
   after_initialize :set_default_role, :if => :new_record?
+  
+  validates :first_name,:last_name,:mobile_no,:gender,:identity_proof_id ,presence: true
+
+  # has_many :trains
+  # has_many :schedules, through: :trains
+  def full_name
+    "#{first_name} #{last_name}"
+  end
+
+  private
+
   def set_default_role
     self.role ||= :user
   end
-
 end
