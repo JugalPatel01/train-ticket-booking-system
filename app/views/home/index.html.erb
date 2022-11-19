@@ -1,0 +1,22 @@
+<% if current_user %>
+     <h1>welcome to train booking system</h1>
+    <p> Hello <%= current_user.email %> you signed in as a <%= current_user.role%> !!! </p>
+    <% if current_user.admin?%>
+    <%= link_to 'add trains', edit_user_registration_path, class:"btn btn-primary btn-lg mb-5 mt-5" %>
+    <%= link_to 'add schedules', edit_user_registration_path, class:"btn btn-primary btn-lg mt-5 mb-5 ms-5" %>
+    <%= link_to 'view passenger log', edit_user_registration_path, class:"btn btn-primary btn-lg m-5" %>
+    <% end %>
+    <% if current_user.admin? || current_user.user? %>
+    <%= link_to 'book train', edit_user_registration_path, class:"btn btn-primary btn-lg mb-5 mt-5" %>
+    <% end %>
+    
+
+
+<% else %>
+    <div class = "container m-5 p-5">
+    <h1 class="fw-bold" style="font-size:50pt">you are not signed in </h1>
+        <%= link_to 'Sign-In', new_user_session_path, class:"btn btn-primary btn-lg m-5" %>
+        <%= link_to 'Sign-up', new_user_registration_path, class:"btn btn-primary btn-lg m-5" %>
+    </div>
+
+<% end %>
