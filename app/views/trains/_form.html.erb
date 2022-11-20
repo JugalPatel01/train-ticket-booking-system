@@ -21,9 +21,9 @@
     <%= form.label :train_capacity, style: "display: block" %>
     <%= form.number_field :train_capacity %>
   </div>
+
   <div>
-    <%= form.label :added_by_u_id, style: "display: block" %>
-    <%= form.number_field :added_by_u_id %>
+    <%= form.number_field :user_id, id: :train_user_id, value:current_user.id,type: :hidden  %>
   </div>
 
   <div>

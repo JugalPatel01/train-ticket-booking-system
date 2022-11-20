@@ -1,4 +1,5 @@
 class Train < ApplicationRecord
-    # has_many :schedules
-    # belongs_to :users
+    has_many :tickets
+    has_many :schedules
+    belongs_to :user
 end

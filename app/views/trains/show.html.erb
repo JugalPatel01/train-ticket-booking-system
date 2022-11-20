@@ -6,5 +6,5 @@
   <%= link_to "Edit this train", edit_train_path(@train) %> |
   <%= link_to "Back to trains", trains_path %>
 
-  <%= button_to "Destroy this train", @train, method: :delete %>
+  <%= button_to "Delete this train", @train, method: :delete, data: {confirm: 'Are you Sure?'} %>
 </div>

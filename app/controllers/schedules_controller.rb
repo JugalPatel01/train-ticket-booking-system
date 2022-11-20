@@ -65,6 +65,6 @@ class SchedulesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def schedule_params
-      params.require(:schedule).permit(:sch_train_id, :starting_time, :reaching_time, :src_place_id, :dst_place_id, :tour_fare, :train_id)
+      params.require(:schedule).permit( :starting_time, :reaching_time, :tour_fare, :user_id, :train_id, :src_place_id, :dst_place_id)
     end
 end

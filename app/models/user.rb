@@ -9,8 +9,10 @@ class User < ApplicationRecord
   
   validates :first_name,:last_name,:mobile_no,:gender,:identity_proof_id ,presence: true
 
-  # has_many :trains
-  # has_many :schedules, through: :trains
+  has_many :trains
+  has_many :schedules, through: :trains
+  has_many :tickets , dependent: :destroy
+  has_many :payments , through: :tickets, dependent: :destroy
   def full_name
     "#{first_name} #{last_name}"
   end
