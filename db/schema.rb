@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_061337) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_192234) do
   create_table "payments", force: :cascade do |t|
     t.string "type_of_pay"
     t.string "status"
@@ -39,6 +39,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_061337) do
     t.integer "train_id", null: false
     t.integer "src_place_id", null: false
     t.integer "dst_place_id", null: false
+    t.integer "pass_count", default: 0
     t.index ["dst_place_id"], name: "index_schedules_on_dst_place_id"
     t.index ["src_place_id"], name: "index_schedules_on_src_place_id"
     t.index ["train_id"], name: "index_schedules_on_train_id"

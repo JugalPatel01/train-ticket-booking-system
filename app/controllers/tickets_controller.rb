@@ -37,12 +37,18 @@ class TicketsController < ApplicationController
   def create
     # @ticket = Ticket.new(ticket_params)
     @ticket = current_user.tickets.build(ticket_params)
-
+    @count = Schedule.find(ticket_params[:schedule_id])
+    @fortrain = Train.find(ticket_params[:train_id])
+    @count.pass_count = @count.pass_count + ticket_params[:no_of_people].to_i
+    @count.save
+    
     respond_to do |format|
-      if @ticket.save
+      if @ticket.save and @count.pass_count <= @fortrain.train_capacity
         format.html { redirect_to root_url, notice: "Ticket was successfully created." }
         format.json { render :show, status: :created, location: @ticket }
       else
+        @count.pass_count = @count.pass_count - ticket_params[:no_of_people].to_i
+        @count.save
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
@@ -64,6 +70,11 @@ class TicketsController < ApplicationController
 
   # DELETE /tickets/1 or /tickets/1.json
   def destroy
+    @count = Schedule.find(@ticket.schedule_id)
+    @fortrain = Train.find(@ticket.train_id)
+    @count.pass_count = @count.pass_count - @ticket.no_of_people
+    @count.save
+    
     @ticket.destroy
 
     respond_to do |format|

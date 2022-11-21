@@ -7,7 +7,7 @@
     <%= link_to 'view passenger log', passenger_log_path, class:"btn btn-app btn-lg m-5" %>
     <% end %>
     <% if current_user.admin? || current_user.user? %>
-    <%= link_to 'book train', schedules_path, class:"btn btn-app btn-lg mb-5 mt-5" %>
+    <%= link_to 'book train tickets', schedules_path, class:"btn btn-app btn-lg mb-5 mt-5" %>
     <% end %>
     
 

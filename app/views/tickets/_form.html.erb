@@ -11,40 +11,40 @@
     </div>
   <% end %>
 
-  <div>
+  <div style="font-size:1.2rem;" class="mb-2 mt-1">
     <%= form.label "train name : " %>
     <%= @fortrain.train_name  %>
   </div>
 
-  <div>
+  <div style="font-size:1.2rem;" class="mb-2 mt-1">
     <%= form.label "starting place : " %>
     <%= @startplace.name %>
   </div>
 
-  <div>
+  <div style="font-size:1.2rem;" class="mb-2 mt-1">
     <%= form.label "destination place:" %>
     <%= @endplace.name %>
   </div>
 
-  <div>
+  <div style="font-size:1.2rem;" class="mb-2 mt-1">
     <%= form.label "starting time:" %>
     <%= @forschedule.starting_time  %>
   </div>
 
-  <div>
+  <div style="font-size:1.2rem;" class="mb-2 mt-1">
     <%= form.label "destination time:" %>
     <%= @forschedule.reaching_time %>
   </div>
   
-  <div>
+  <div style="font-size:1.2rem;" class="mb-2 mt-1">
     <%= form.label "tour fare:" %>
     <%= @forschedule.tour_fare %>
   </div>
 
-  <div>
+  <div style="font-size:1.2rem;" class="mb-2 mt-1">
     <%= form.label :no_of_people, style: "display: block" %>
     <% @noofppl = 1 %>
-    <%= form.number_field :no_of_people, value: @noofppl  %>
+    <%= form.number_field :no_of_people,id: :no_of_people_ticket_book, value: @noofppl, min: 0 %>
   </div>
 
   <div>
@@ -64,8 +64,8 @@
   </div>-->
   
   <div>
-    <%= form.label :total_amount, style: "display: block" %>
-    <%= form.number_field :total_amount  %>
+    <%= form.label :total_amount, style: "display: none" %>
+    <%= form.number_field :total_amount, type: :hidden  %>
   </div>
 
   <div>
@@ -73,7 +73,7 @@
   </div>
   <div>
   <% if :payment_id %>
-    <%= form.submit "Book",class: 'btn btn-secondary mt-3' %>
+    <%= form.submit "Book",class:"btn btn-app mt-3" %>
     <% end %>
   </div>
 <% end %>

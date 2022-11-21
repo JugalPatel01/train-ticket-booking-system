@@ -1,33 +1,40 @@
-<div id="<%= dom_id schedule %>">
-
-  <p>
-    <strong>Train name:</strong>
+<tr id="<%= dom_id schedule %>">
+  <td>
+    <%= schedule.id %>
+  </td>
+  <td>
     <% @schtrain = Train.find(schedule.train_id)%>
     <%= @schtrain.train_name %>
-  </p>
-  <p>
-    <strong>Starting location:</strong>
+  </td>
+  <td>
     <% @startplace = Place.find(schedule.src_place_id)%>
     <%= @startplace.name %>
-  </p>
-  <p>
-    <strong>destination location:</strong>
+  </td>
+  <td>
     <% @endplace = Place.find(schedule.dst_place_id)%>
     <%= @endplace.name %>
-  </p>
-  <p>
-    <strong>Starting time:</strong>
+  </td>
+  <td>
     <%= schedule.starting_time %>
-  </p>
-
-  <p>
-    <strong>Reaching time:</strong>
+  </td>
+  <td>
     <%= schedule.reaching_time %>
-  </p>
-
-  <p>
-    <strong>Tour fare:</strong>
+  </td>
+  <td>
     <%= schedule.tour_fare %>
-  </p>
-
-</div>
+  </td>
+  <td>
+    <%= @schtrain.train_capacity - schedule.pass_count %>
+  </td>
+  <td>
+    <%= link_to "book ticket", new_ticket_path(:data => schedule.id),class:"btn btn-app mt-3" %>
+  </td>
+  <td>
+    <%if current_user.admin?%>
+      <%= link_to "Show this schedule", schedule,class:"btn btn-app mt-3" %>
+    <% end %>
+  </td>
+</tr>
+<tr class="warning no-result">
+      <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+</tr>
