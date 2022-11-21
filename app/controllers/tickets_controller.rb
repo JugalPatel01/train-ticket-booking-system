@@ -49,7 +49,8 @@ class TicketsController < ApplicationController
       else
         @count.pass_count = @count.pass_count - ticket_params[:no_of_people].to_i
         @count.save
-        format.html { render :new, status: :unprocessable_entity }
+        # format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to schedules_url, notice: "Ticket booking cancelled because of tickets are not available. Try some other train." }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
       end
     end

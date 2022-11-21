@@ -1,5 +1,9 @@
 <tr id="<%= dom_id ticket %>">
   <td>
+    <% @user_object = User.find(ticket.user_id)%>
+    <%= @user_object.first_name + @user_object.last_name %>
+  </td>
+  <td>
     <% @t_t_object = Train.find(ticket.train_id)%>
     <%= @t_t_object.train_name %>
   </td>

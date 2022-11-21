@@ -44,7 +44,7 @@
   <div style="font-size:1.2rem;" class="mb-2 mt-1">
     <%= form.label :no_of_people, style: "display: block" %>
     <% @noofppl = 1 %>
-    <%= form.number_field :no_of_people,id: :no_of_people_ticket_book, value: @noofppl, min: 0 %>
+    <%= form.number_field :no_of_people,id: :no_of_people_ticket_book, value: @noofppl, min: 0 , max: 15 %>
   </div>
 
   <div>
