@@ -12,13 +12,21 @@
   <% end %>
 
   <div>
-    <%= form.label :status, style: "display: block" %>
-    <%= form.text_field :status %>
+    <%= form.text_field :status ,value: "fully_done", type: :hidden %>
   </div>
 
   <div>
-    <%= form.label :type, style: "display: block" %>
-    <%= form.text_field :type %>
+    <%= form.text_field :type_of_pay ,value: "online", type: :hidden %>
+  </div>
+  
+  <div>
+    <%= form.number_field :user_id ,value:current_user.id, type: :hidden %>
+  </div>
+  <div>
+    <%= form.number_field :amount ,value:@t_amount, type: :hidden %>
+    <%= @t_amount %>
+    <%= @tour_fare_for_ticket %>
+    <%= @no_of_people_for_ticket %>
   </div>
 
   <div>

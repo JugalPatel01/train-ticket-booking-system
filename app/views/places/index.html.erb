@@ -1,3 +1,5 @@
+<% if current_user.admin?%>
+
 <h1>Places</h1>
 
 <div id="places">
@@ -12,3 +14,4 @@
 <%= link_to "New place", new_place_path %>
 <%= link_to 'Back to Schedules', schedules_path, class:"btn btn-primary mb-2 mt-2" %>
 
+<% end %>

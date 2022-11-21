@@ -1,4 +1,4 @@
-<p style="color: green"><%= notice %></p>
+<% if current_user.admin?%>
 
 <%= render @place %>
 
@@ -9,3 +9,4 @@
 
   <%= button_to "delete this place", @place, method: :delete , data: {confirm: 'Are you Sure?'}%>
 </div>
+<% end %>

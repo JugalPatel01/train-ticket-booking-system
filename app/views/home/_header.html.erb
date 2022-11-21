@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-image: linear-gradient(15deg, #13547a 0%, #80d0c7 100%);">
   <div class="container-fluid">  
     <%= link_to 'Dashboard', root_path, class:"navbar-brand m-0 h1",style:"font-size:2.2rem;color:d8e0eb" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -17,13 +17,13 @@
         <%= link_to 'Schedules', schedules_path, class:"nav-link m-1",style:"font-size:1.5rem;color:d8e0eb" %>
       </li>
       <li class="nav-item">
-        <%= link_to 'View Passenger Log', tickets_path, class:"nav-link m-1",style:"font-size:1.5rem;color:d8e0eb" %>
+        <%= link_to 'View Passenger Log', passenger_log_path, class:"nav-link m-1",style:"font-size:1.5rem;color:d8e0eb" %>
       </li>
 
       <% end %>
       <% if current_user.admin? || current_user.user? %>
       <li class="nav-item">
-        <%= link_to 'Book Tickets', new_ticket_path, class:"nav-link m-1",style:"font-size:1.5rem;color:d8e0eb" %>
+        <%= link_to 'Book Tickets', schedules_path, class:"nav-link m-1",style:"font-size:1.5rem;color:d8e0eb" %>
       </li>
       <li class="nav-item">
         <%= link_to 'Ticket History', tickets_path, class:"nav-link m-1",style:"font-size:1.5rem;color:d8e0eb" %>

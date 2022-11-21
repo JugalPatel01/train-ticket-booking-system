@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  resources :tickets
+  resources :tickets 
   resources :payments
   resources :places
   resources :schedules
@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   devise_for :users
   # get 'home/index'
   root 'home#index'
+  get 'passenger_log', to: 'tickets#passenger_log'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
     devise_scope :user do

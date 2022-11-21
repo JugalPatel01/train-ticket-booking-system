@@ -1,8 +1,12 @@
 class TicketsController < ApplicationController
-  before_action :set_ticket, only: %i[ show edit update destroy ]
+  before_action :set_ticket, only: %i[ show edit update destroy ] 
 
   # GET /tickets or /tickets.json
   def index
+    @tickets = Ticket.all
+  end
+  
+  def passenger_log
     @tickets = Ticket.all
   end
 
@@ -12,7 +16,17 @@ class TicketsController < ApplicationController
 
   # GET /tickets/new
   def new
-    @ticket = Ticket.new
+    
+    @s_id = params[:data].to_i
+    @sobject = Schedule.find(@s_id)
+    @t_id = @sobject.train_id
+    @t_fair = @sobject.tour_fare
+    @fortrain = Train.find(@t_id)
+    @forschedule = Schedule.find(@s_id)
+    @startplace = Place.find(@forschedule.src_place_id)
+    @endplace = Place.find(@forschedule.dst_place_id) 
+    
+    @ticket = current_user.tickets.build
   end
 
   # GET /tickets/1/edit
@@ -21,11 +35,12 @@ class TicketsController < ApplicationController
 
   # POST /tickets or /tickets.json
   def create
-    @ticket = Ticket.new(ticket_params)
+    # @ticket = Ticket.new(ticket_params)
+    @ticket = current_user.tickets.build(ticket_params)
 
     respond_to do |format|
       if @ticket.save
-        format.html { redirect_to ticket_url(@ticket), notice: "Ticket was successfully created." }
+        format.html { redirect_to root_url, notice: "Ticket was successfully created." }
         format.json { render :show, status: :created, location: @ticket }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -57,6 +72,8 @@ class TicketsController < ApplicationController
     end
   end
 
+   
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_ticket
@@ -65,6 +82,6 @@ class TicketsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def ticket_params
-      params.require(:ticket).permit(:no_of_people, :total_amount, :sch_id, :u_id,:pay_id)
+      params.require(:ticket).permit(:no_of_people, :total_amount, :user_id,:train_id,:schedule_id,:payment_id,:data)
     end
 end

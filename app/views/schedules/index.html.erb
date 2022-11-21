@@ -6,7 +6,12 @@
     <p>
       <%= link_to "Show this schedule", schedule %>
     </p>
+    <p>
+      <%= link_to "book ticket", new_ticket_path(:data => schedule.id) %>
+    </p>
   <% end %>
 </div>
 
-<%= link_to "New schedule", new_schedule_path %>
+<% if current_user.admin?%>
+  <%= link_to "New schedule", new_schedule_path %>
+<% end %>

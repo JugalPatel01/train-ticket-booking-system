@@ -1,6 +1,21 @@
 <div id="<%= dom_id schedule %>">
 
   <p>
+    <strong>Train name:</strong>
+    <% @schtrain = Train.find(schedule.train_id)%>
+    <%= @schtrain.train_name %>
+  </p>
+  <p>
+    <strong>Starting location:</strong>
+    <% @startplace = Place.find(schedule.src_place_id)%>
+    <%= @startplace.name %>
+  </p>
+  <p>
+    <strong>destination location:</strong>
+    <% @endplace = Place.find(schedule.dst_place_id)%>
+    <%= @endplace.name %>
+  </p>
+  <p>
     <strong>Starting time:</strong>
     <%= schedule.starting_time %>
   </p>

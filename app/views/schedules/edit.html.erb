@@ -1,3 +1,5 @@
+<% if current_user.admin?%>
+
 <h1>Editing schedule</h1>
 
 <%= render "form", schedule: @schedule %>
@@ -8,3 +10,4 @@
   <%= link_to "Show this schedule", @schedule %> |
   <%= link_to "Back to schedules", schedules_path %>
 </div>
+<% end %>

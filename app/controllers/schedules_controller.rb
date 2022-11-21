@@ -4,6 +4,7 @@ class SchedulesController < ApplicationController
   # GET /schedules or /schedules.json
   def index
     @schedules = Schedule.all
+    
   end
 
   # GET /schedules/1 or /schedules/1.json
@@ -25,7 +26,7 @@ class SchedulesController < ApplicationController
 
     respond_to do |format|
       if @schedule.save
-        format.html { redirect_to schedule_url(@schedule), notice: "Schedule was successfully created." }
+        format.html { redirect_to schedules_url, notice: "Schedule was successfully created." }
         format.json { render :show, status: :created, location: @schedule }
       else
         format.html { render :new, status: :unprocessable_entity }

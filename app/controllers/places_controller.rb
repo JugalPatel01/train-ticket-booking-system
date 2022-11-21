@@ -38,7 +38,7 @@ class PlacesController < ApplicationController
   def update
     respond_to do |format|
       if @place.update(place_params)
-        format.html { redirect_to place_url(@place), notice: "Place was successfully updated." }
+        format.html { redirect_to places_url, notice: "Place was successfully updated." }
         format.json { render :show, status: :ok, location: @place }
       else
         format.html { render :edit, status: :unprocessable_entity }

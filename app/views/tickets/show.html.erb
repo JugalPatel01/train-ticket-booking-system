@@ -1,10 +1,10 @@
-<p style="color: green"><%= notice %></p>
-
 <%= render @ticket %>
 
 <div>
   <%# <%= link_to "Edit this ticket", edit_ticket_path(@ticket) % > %>
   <%= link_to "Back to tickets", tickets_path %>
+  <%= link_to 'Back to Schedules', schedules_path, class:"btn btn-primary mb-2 mt-2" %>
+
 
   <%= button_to "cancel this ticket", @ticket, method: :delete, data: {confirm: 'Are you Sure?'} %>
 </div>

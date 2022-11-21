@@ -10,13 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_20_104303) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_21_061337) do
   create_table "payments", force: :cascade do |t|
-    t.string "type"
+    t.string "type_of_pay"
     t.string "status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
+    t.integer "amount", null: false
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
@@ -51,6 +52,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_104303) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "train_id", null: false
+    t.integer "schedule_id", null: false
+    t.integer "payment_id", null: false
+    t.index ["payment_id"], name: "index_tickets_on_payment_id"
+    t.index ["schedule_id"], name: "index_tickets_on_schedule_id"
     t.index ["train_id"], name: "index_tickets_on_train_id"
     t.index ["user_id"], name: "index_tickets_on_user_id"
   end
@@ -88,6 +93,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_20_104303) do
   add_foreign_key "schedules", "places", column: "src_place_id"
   add_foreign_key "schedules", "trains"
   add_foreign_key "schedules", "users"
+  add_foreign_key "tickets", "payments"
+  add_foreign_key "tickets", "schedules"
   add_foreign_key "tickets", "trains"
   add_foreign_key "tickets", "users"
   add_foreign_key "trains", "users"
