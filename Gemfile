@@ -46,6 +46,9 @@ gem "bootsnap", require: false
 # devise
 gem 'devise', '~> 4.8', '>= 4.8.1'
 
+# twillio 
+gem 'twilio-ruby'
+
 # Use Sass to process CSS
 # gem "sassc-rails"
 

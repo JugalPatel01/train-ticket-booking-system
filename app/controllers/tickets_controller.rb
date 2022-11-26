@@ -1,3 +1,5 @@
+require 'twilio-ruby'
+
 class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[ show edit update destroy ] 
 
@@ -28,27 +30,44 @@ class TicketsController < ApplicationController
     
     @ticket = current_user.tickets.build
   end
-
+  
   # GET /tickets/1/edit
   def edit
   end
-
+  
   # POST /tickets or /tickets.json
   def create
     # @ticket = Ticket.new(ticket_params)
-    @ticket = current_user.tickets.build(ticket_params)
-    @count = Schedule.find(ticket_params[:schedule_id])
+    @forschedule = Schedule.find(ticket_params[:schedule_id])
     @fortrain = Train.find(ticket_params[:train_id])
-    @count.pass_count = @count.pass_count + ticket_params[:no_of_people].to_i
-    @count.save
+    @startplace = Place.find(@forschedule.src_place_id)
+    @endplace = Place.find(@forschedule.dst_place_id) 
+    @forschedule.pass_count = @forschedule.pass_count + ticket_params[:no_of_people].to_i
+    @forschedule.save
+    ticket_params[:total_amount] = ticket_params[:no_of_people]*@forschedule.tour_fare
+    @ticket = current_user.tickets.build(ticket_params)
     
     respond_to do |format|
-      if @ticket.save and @count.pass_count <= @fortrain.train_capacity
+      if @ticket.save and @forschedule.pass_count <= @fortrain.train_capacity
         format.html { redirect_to root_url, notice: "Ticket was successfully created." }
+                
+        # account_sid = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+        # auth_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+        # client = Twilio::REST::Client.new(account_sid, auth_token)
+
+        # from = '+00000000000' # Your Twilio number
+        # to = '+00000000000' # Your mobile phone number
+
+        # client.messages.create(
+        # from: from,
+        # to: to,
+        # body: "Your ticket for Train => " + @fortrain.train_name + " from " + @startplace.name + " to " + @endplace.name + " for " + ticket_params[:no_of_people] + " people is confirmed."
+        # )
+
         format.json { render :show, status: :created, location: @ticket }
       else
-        @count.pass_count = @count.pass_count - ticket_params[:no_of_people].to_i
-        @count.save
+        @forschedule.pass_count = @forschedule.pass_count - ticket_params[:no_of_people].to_i
+        @forschedule.save
         # format.html { render :new, status: :unprocessable_entity }
         format.html { redirect_to schedules_url, notice: "Ticket booking cancelled because of tickets are not available. Try some other train." }
         format.json { render json: @ticket.errors, status: :unprocessable_entity }
