@@ -12,7 +12,7 @@ class User < ApplicationRecord
   has_many :trains
   has_many :schedules, through: :trains
   has_many :tickets , dependent: :destroy
-  has_many :payments , through: :tickets, dependent: :destroy
+  has_many :payments , dependent: :destroy
   def full_name
     "#{first_name} #{last_name}"
   end

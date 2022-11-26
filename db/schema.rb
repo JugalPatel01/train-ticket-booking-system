@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_192234) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_01_205600) do
   create_table "payments", force: :cascade do |t|
     t.string "type_of_pay"
     t.string "status"
@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_192234) do
     t.datetime "updated_at", null: false
     t.integer "user_id", null: false
     t.integer "amount", null: false
+    t.integer "ticket_id", null: false
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
@@ -54,7 +55,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_192234) do
     t.integer "user_id", null: false
     t.integer "train_id", null: false
     t.integer "schedule_id", null: false
-    t.integer "payment_id", null: false
+    t.integer "payment_id"
     t.index ["payment_id"], name: "index_tickets_on_payment_id"
     t.index ["schedule_id"], name: "index_tickets_on_schedule_id"
     t.index ["train_id"], name: "index_tickets_on_train_id"

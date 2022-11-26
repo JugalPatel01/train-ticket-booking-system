@@ -58,10 +58,6 @@
   <div>
     <%= form.number_field :train_id, id: :ticket_train_id, value:@t_id,type: :hidden  %>
   </div>
-
-  <!--<div>
-      <%= link_to 'pay', new_payment_path(:data => { :train_name => @fortrain.train_name,:starting_place => @startplace.name, :ending_place => @endplace.name, :starting_time => @forschedule.starting_time, :reaching_time => @forschedule.reaching_time , :tour_fare => @forschedule.tour_fare,:no_of_people => :no_of_people, :s_id => @s_id, :t_id => @t_id }), class:"btn btn-primary mb-2 mt-2" %>
-  </div>-->
   
   <div>
     <%= form.label :total_amount, style: "display: none" %>
@@ -69,11 +65,6 @@
   </div>
 
   <div>
-    <%= form.number_field :payment_id, id: :ticket_payment_id, value:1,type: :hidden  %>
-  </div>
-  <div>
-  <% if :payment_id %>
     <%= form.submit "Book",class:"btn btn-app mt-3" %>
-    <% end %>
   </div>
 <% end %>

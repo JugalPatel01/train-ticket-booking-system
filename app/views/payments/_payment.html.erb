@@ -1,13 +1,20 @@
-<div id="<%= dom_id payment %>">
-
-  <p>
-    <strong>Status:</strong>
+<tr id="<%= dom_id payment %>">
+  <td>
+    <%= payment.id %>
+  </td>
+  <td>
     <%= payment.status %>
-  </p>
-
-  <p>
-    <strong>Type:</strong>
+  </td>
+  <td>
+    <%= payment.amount %>
+  </td>
+  <td>
     <%= payment.type_of_pay %>
-  </p>
-
-</div>
+  </td>
+  <td>
+    <%= payment.created_at %>
+  </td>
+</tr>
+<tr class="warning no-result">
+      <td colspan="4"><i class="fa fa-warning"></i> No result</td>
+</tr>

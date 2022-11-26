@@ -1,7 +1,7 @@
 <tr id="<%= dom_id ticket %>">
   <td>
     <% @user_object = User.find(ticket.user_id)%>
-    <%= @user_object.first_name + @user_object.last_name %>
+    <%= @user_object.first_name + " " + @user_object.last_name %>
   </td>
   <td>
     <% @t_t_object = Train.find(ticket.train_id)%>
@@ -33,6 +33,9 @@
   </td>
   <td>
     <%= ticket.created_at %>
+  </td>
+  <td>
+    <%= ticket.payment_id %>
   </td>
   <td>
         <%= link_to "Show this ticket", ticket,class:"btn btn-app mt-3" %>

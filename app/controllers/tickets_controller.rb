@@ -43,14 +43,25 @@ class TicketsController < ApplicationController
     @startplace = Place.find(@forschedule.src_place_id)
     @endplace = Place.find(@forschedule.dst_place_id) 
     @forschedule.pass_count = @forschedule.pass_count + ticket_params[:no_of_people].to_i
-    @forschedule.save
-    ticket_params[:total_amount] = ticket_params[:no_of_people]*@forschedule.tour_fare
+    
     @ticket = current_user.tickets.build(ticket_params)
+    @ticket.total_amount = ticket_params[:no_of_people].to_i * @forschedule.tour_fare.to_i
+    
     
     respond_to do |format|
       if @ticket.save and @forschedule.pass_count <= @fortrain.train_capacity
+        
+        @paymentdata = {:type_of_pay => "online", :status => "paid",:user_id => current_user.id,:amount => @ticket.total_amount,:ticket_id => @ticket.id}
+        @paymentobj = current_user.payments.build(@paymentdata)
+        @paymentobj.ticket_id = @ticket.id
+        @paymentobj.save
+        @ticket.payment_id = @paymentobj.id
+        @ticket.save
+        @forschedule.save
+        
         format.html { redirect_to root_url, notice: "Ticket was successfully created." }
                 
+
         # account_sid = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         # auth_token = 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
         # client = Twilio::REST::Client.new(account_sid, auth_token)
@@ -90,17 +101,22 @@ class TicketsController < ApplicationController
 
   # DELETE /tickets/1 or /tickets/1.json
   def destroy
-    @count = Schedule.find(@ticket.schedule_id)
-    @fortrain = Train.find(@ticket.train_id)
-    @count.pass_count = @count.pass_count - @ticket.no_of_people
-    @count.save
-    
+    @paymentobjfordelete = Payment.find(@ticket.payment_id)
     @ticket.destroy
-
-    respond_to do |format|
-      format.html { redirect_to tickets_url, notice: "Ticket was successfully destroyed." }
-      format.json { head :no_content }
-    end
+    @paymentobjfordelete.destroy
+      if @ticket.destroyed? and @paymentobjfordelete.destroyed?
+        flash[:notice] = "Ticket is successfully cancelled!!!!"
+        respond_to do |format|
+          @count = Schedule.find(@ticket.schedule_id)
+          @fortrain = Train.find(@ticket.train_id)
+          @count.pass_count = @count.pass_count - @ticket.no_of_people
+          @count.save
+          format.html { redirect_to tickets_url, notice: "Ticket was successfully destroyed." }
+          format.json { head :no_content }
+        end
+      else
+        flash[:notice] = 'ticket cancellation was unsuccessful :<< '
+      end
   end
 
    
